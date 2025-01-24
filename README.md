@@ -14,9 +14,14 @@
 
 ## Como iniciar el proyecto
 
-Toda la app esta dockerizada con un docker-compose.yml. Para levantar la app, esto es levanta la API y la instancia de MySQL se debe ejecutar este comando en la raiz del proyecto:
+Para levantar la app, se tiene que levantar la API a traves del IDE o ejecutar el comando:
+``
+
+Para levantar la base de mysql se ejecuta:
 
 `docker-compose up`
+
+La configuracion esta en un docker-compose.yml (Hubo un intento de dockerizar toda la app pero pasaron cosas)
 
 ## Comentarios
 
