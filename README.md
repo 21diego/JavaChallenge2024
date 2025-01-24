@@ -15,7 +15,8 @@
 ## Como iniciar el proyecto
 
 Para levantar la app, se tiene que levantar la API a traves del IDE o ejecutar el comando:
-``
+
+`java -jar .\PuntosDeVentaAPI-1.0.0.jar`
 
 Para levantar la base de mysql se ejecuta:
 
