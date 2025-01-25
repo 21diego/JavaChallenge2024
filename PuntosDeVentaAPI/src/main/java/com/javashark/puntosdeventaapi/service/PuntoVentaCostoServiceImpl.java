@@ -3,6 +3,8 @@ package com.javashark.puntosdeventaapi.service;
 import com.javashark.puntosdeventaapi.exception.PuntoVentaCostoDuplicatedException;
 import com.javashark.puntosdeventaapi.exception.PuntoVentaCostoNotFoundException;
 import com.javashark.puntosdeventaapi.exception.PuntoVentaCostoPathNotFoundException;
+import com.javashark.puntosdeventaapi.exception.PuntoVentaCostoSelfReferenceException;
+import com.javashark.puntosdeventaapi.model.PuntoVenta;
 import com.javashark.puntosdeventaapi.model.PuntoVentaCosto;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,9 @@ public class PuntoVentaCostoServiceImpl implements IPuntoVentaCostoService {
             PuntoVentaCosto punto = cache.get(key);
             throw new PuntoVentaCostoDuplicatedException("El costo para el camino entre el punto: " + puntoA + " y el punto: " + puntoB + " ya se encuentra seteado y es: " + punto.getCosto() );
         }
+        if(puntoA.equals(puntoB)){
+            throw new PuntoVentaCostoSelfReferenceException("El punto A y el punto B son el mismo punto, El costo es 0.");
+        }
         cache.put(key, costo);
     }
 
@@ -74,5 +79,18 @@ public class PuntoVentaCostoServiceImpl implements IPuntoVentaCostoService {
         return resultado;
     }
 
+    public List<PuntoVentaCosto> obtenerTodosLosCostos() {
+        return new ArrayList<>(cache.values());
+    }
 
+    public PuntoVentaCosto obtenerCosto(Long puntoA, Long puntoB) {
+        String key = puntoA < puntoB ? puntoA + "-" + puntoB : puntoB + "-" + puntoA;
+        if(puntoA.equals(puntoB)){
+            return new PuntoVentaCosto(puntoA, puntoB, 0);
+        }
+        if(!cache.containsKey(key)){
+            throw new PuntoVentaCostoNotFoundException("El costo entre el punto A: " + puntoA + " y el punto B: " + puntoB + " no esta seteado.");
+        }
+        return cache.get(key);
+    }
 }

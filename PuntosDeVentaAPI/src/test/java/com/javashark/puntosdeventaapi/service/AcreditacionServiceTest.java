@@ -1,5 +1,6 @@
 package com.javashark.puntosdeventaapi.service;
 
+import com.javashark.puntosdeventaapi.exception.AcreditacionNotFoundException;
 import com.javashark.puntosdeventaapi.exception.PuntoVentaNotFoundException;
 import com.javashark.puntosdeventaapi.model.Acreditacion;
 import com.javashark.puntosdeventaapi.model.PuntoVenta;
@@ -9,8 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.TestPropertySource;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -80,6 +81,11 @@ public class AcreditacionServiceTest {
 
     @Test
     void testObtenerAcreditacionRetornaException() {
+        when(acreditacionRepository.findById(1L)).thenThrow(NoSuchElementException.class);
+
+        //Acreditacion resultado = acreditacionService.obtenerAcreditacionPorId(1L);
+
+        assertThrows(AcreditacionNotFoundException.class, () -> {acreditacionService.obtenerAcreditacionPorId(1L);});
 
     }
 

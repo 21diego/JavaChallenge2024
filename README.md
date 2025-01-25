@@ -24,7 +24,13 @@ Para levantar la base de mysql se ejecuta:
 
 La configuracion esta en un docker-compose.yml (Hubo un intento de dockerizar toda la app pero pasaron cosas)
 
-## Comentarios
+## Cobertura de Tests
+
+Para obtener el reporte utilizando Jacoco, ejecutar el siguiente comando:
+
+`mvn clean test jacoco:report`
+
+## Comentarios extras
 
 - Se incluye una coleccion de pruebas en postman para probar cada endpoint de la app: `Puntos de Ventas collection.postman_collection.json`
 - El algoritmo de Dijkstra es copiada de una implementacion en Java de Internet ya adaptada a los objetos que he creado para el proyecto (La teoria de algoritmos y grafos la tenia pero como implementarlo no 🤣)

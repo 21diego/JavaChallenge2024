@@ -14,4 +14,8 @@ public interface IPuntoVentaCostoService {
     List<PuntoVentaCosto> obtenerCostosDelPuntoA(Long puntoA);
 
     Map<String, Object> obtenerCaminoMinimo(Long puntoA, Long puntoB);
+
+    List<PuntoVentaCosto> obtenerTodosLosCostos();
+
+    PuntoVentaCosto obtenerCosto(Long puntoA, Long puntoB);
 }

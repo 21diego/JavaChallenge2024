@@ -3,6 +3,7 @@ package com.javashark.puntosdeventaapi.controller;
 import com.javashark.puntosdeventaapi.exception.PuntoVentaCostoDuplicatedException;
 import com.javashark.puntosdeventaapi.exception.PuntoVentaCostoNotFoundException;
 import com.javashark.puntosdeventaapi.exception.PuntoVentaCostoPathNotFoundException;
+import com.javashark.puntosdeventaapi.exception.PuntoVentaCostoSelfReferenceException;
 import com.javashark.puntosdeventaapi.model.PuntoVentaCosto;
 import com.javashark.puntosdeventaapi.service.IPuntoVentaCostoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class PuntoVentaCostoController {
             return ResponseEntity.status(HttpStatus.CREATED).body(costo);
         }catch(PuntoVentaCostoDuplicatedException e){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }catch (PuntoVentaCostoSelfReferenceException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
